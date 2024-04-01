@@ -167,7 +167,7 @@ void game_initialize_board() {
 
 void game_check_status() {
     char aux;
-    size_t i, j, occ_x, occ_o, occurrences;
+    size_t i, j, occ_x, occ_o;
     if(game_status != PLAYING)
         return;
 
