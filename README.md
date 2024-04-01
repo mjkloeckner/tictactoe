@@ -1,7 +1,8 @@
 # Tic Tac Toe on the Command Line
 
-This is a Command line tic tac toe game. It was first developed as a [solution
-to a practical problem of a University course.](https://github.com/mjkloeckner/CB100/blob/3db111deffcd5ec767f81682f9f9c2106e05b69a/guias/2/ej12.cpp)
+This is a Command line tic tac toe game. It was first developed as a
+[solution](https://github.com/mjkloeckner/CB100/blob/3db111deffcd5ec767f81682f9f9c2106e05b69a/guias/2/ej12.cpp)
+to a practical problem of a University course
 
 ## Dependencies
 
