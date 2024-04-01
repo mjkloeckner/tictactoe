@@ -4,6 +4,8 @@ This is a Command line tic tac toe game. It was first developed as a
 [solution](https://github.com/mjkloeckner/CB100/blob/3db111deffcd5ec767f81682f9f9c2106e05b69a/guias/2/ej12.cpp)
 to a practical problem of a University course
 
+![Screencast of the game](https://github.com/mjkloeckner/tictactoe/assets/64109770/307ca00b-8d8f-42a4-b716-536cc25c114c)
+
 ## Dependencies
 
 - Unix Based Operating System (Linux, \*BSD, etc)
