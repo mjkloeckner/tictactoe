@@ -248,12 +248,12 @@ void game_check_status() {
         game_status = WIN;
     }
 
-    for(i = 0; i < 3; ++i)
-        for(j = 0; j < 3; ++j)
-            if(game_board[i][j] == ' ')
-                goto end;;
+    if(game_status != WIN)
+        for(i = 0; i < 3; ++i)
+            for(j = 0; j < 3; ++j)
+                if(game_board[i][j] == ' ')
+                    return;
 
-end:
     if((i == j) && (i == 3))
         game_status = DRAFT;
 }
