@@ -23,3 +23,7 @@ Then run the executable
 ```console
 $ ./tictactoe
 ```
+
+## License
+
+[MIT](https://opensource.org/licenses/MIT)
