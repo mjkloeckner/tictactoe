@@ -6,7 +6,7 @@
 
 typedef enum {
     PLAYER_1,
-    PLAYER_2,
+    PLAYER_2
 } player_t;
 
 typedef enum {
