@@ -257,14 +257,15 @@ void game_check_status() {
         game_status = WIN;
     }
 
-    if(game_status != WIN)
+    if(game_status != WIN) {
         for(i = 0; i < 3; ++i)
             for(j = 0; j < 3; ++j)
                 if(game_board[i][j] == ' ')
                     return;
 
-    if((i == j) && (i == 3))
-        game_status = DRAFT;
+        if((i == j) && (i == 3))
+            game_status = DRAFT;
+    }
 }
 
 void game_key_handler(void) {
