@@ -27,7 +27,7 @@ static int cursor_col, cursor_row, cursor_row_pre;
 std::string player_status, key_string;
 char game_board[3][3];
 
-void tui_set_input_mode (void) {
+void tui_set_input_mode(void) {
     struct termios tattr;
 
     if (!isatty(STDIN_FILENO)) {
@@ -43,7 +43,7 @@ void tui_set_input_mode (void) {
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &tattr);
 }
 
-void tui_reset_input_mode (void) {
+void tui_reset_input_mode(void) {
     tcsetattr(STDIN_FILENO, TCSANOW, &default_attributes);
 }
 
@@ -60,7 +60,7 @@ void game_clear_board(void) {
     cursor_row_pre = cursor_row;
 }
 
-void game_player_status_msg() {
+void game_player_status_msg(void) {
     std::ostringstream current_player_string;
     unsigned int player_won;
     key_string.assign("\033[0J");
@@ -153,12 +153,12 @@ void game_redraw_board(void) {
     game_board_set_cursor();
 }
 
-void game_tui_cleanup() {
+void game_tui_cleanup(void) {
     tui_reset_input_mode();
     std::cout << "\033[" << tui_total_height-(cursor_row*2)-1 << "E";
 }
 
-void game_tui_setup() {
+void game_tui_setup(void) {
     tui_set_input_mode();
     signal(SIGINT,  game_sig_handler);
     signal(SIGQUIT, game_sig_handler);
@@ -167,7 +167,7 @@ void game_tui_setup() {
     std::cout << "\033[4 q"; // Blinking block cursor
 }
 
-void game_initialize_board() {
+void game_initialize_board(void) {
     for(size_t i = 0; i < 3; ++i) {
         for(size_t j = 0; j < 3; ++j) {
             game_board[i][j] = ' ';
@@ -175,7 +175,7 @@ void game_initialize_board() {
     }
 }
 
-void game_check_status() {
+void game_check_status(void) {
     char aux;
     size_t i, j, occ_x, occ_o;
     if(game_status != PLAYING)
@@ -323,7 +323,7 @@ void game_key_handler(void) {
     }
 }
 
-int main (void) {
+int main(void) {
     tui_total_height = 7;
     cursor_row = cursor_row_pre = cursor_col = 0;
     game_status = PLAYING;
