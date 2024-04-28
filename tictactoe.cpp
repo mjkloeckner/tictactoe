@@ -67,15 +67,15 @@ void game_player_status_msg(void) {
 
     switch(game_status) {
     case PLAYING:
-        player_status = std::string("Player ");
+        player_status.assign("Player ");
         player_status += (std::ostringstream() << current_player).str();
         player_status += "\033[0J";
         break;
     case WIN:
         player_won = ((current_player == PLAYER_1) ? PLAYER_2 : PLAYER_1);
-        player_status = std::string("Player ");
         current_player_string << player_won+1;
         player_status += current_player_string.str();
+        player_status.assign("Player ");
         player_status += " Wins";
         key_string.assign("Press `r` to restart\033[0J");
         game_status = HALT;
