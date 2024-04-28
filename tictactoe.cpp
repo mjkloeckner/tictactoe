@@ -144,7 +144,6 @@ void game_set_at_cursor_pos(void) {
 void game_redraw_board(void) {
     game_clear_board();
     game_print_board();
-    std::cout << "\033[" << tui_total_height-1 << "A";
     game_board_set_cursor();
 }
 
@@ -163,6 +162,9 @@ void game_tui_setup(void) {
 }
 
 void game_initialize_board(void) {
+    game_status = PLAYING;
+    cursor_col = cursor_row = 1;
+    current_player = PLAYER_1;
     for(size_t i = 0; i < 3; ++i) {
         for(size_t j = 0; j < 3; ++j) {
             game_board[i][j] = ' ';
@@ -319,30 +321,19 @@ void game_key_handler(void) {
 }
 
 int main(void) {
-    cursor_row = cursor_row_pre = cursor_col = 0;
-    game_status = PLAYING;
-    current_player = PLAYER_1;
+    cursor_row = cursor_col = cursor_row_pre = 0;
 
     game_tui_setup();
     game_initialize_board();
     game_print_board();
-    std::cout << "\033[" << tui_total_height-1 << "A";
     std::cout << "\033[" << ((cursor_col*4)+2) << "C";
-
-    game_move_cursor_right();
-    game_redraw_board();
-    game_move_cursor_down();
     game_redraw_board();
 
     while(game_status != EXIT) {
         game_key_handler();
-        if(game_status == RESET) {
-            game_status = PLAYING;
-            current_player = PLAYER_1;
-            cursor_col = cursor_row = 1;
-            game_initialize_board();
-        }
         game_check_status();
+        if(game_status == RESET)
+            game_initialize_board();
         game_redraw_board();
     }
 
