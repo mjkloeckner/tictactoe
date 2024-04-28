@@ -79,9 +79,7 @@ void game_player_status_msg(void) {
         break;
     case DRAFT:
         player_status.assign("Draft\033[0J");
-        key_string.assign("Press `r` to restart\033[0J");
         game_status = HALT;
-        break;
     case HALT:
         key_string.assign("Press `r` to restart\033[0J");
         break;
@@ -138,8 +136,7 @@ void game_move_cursor_down(void) {
 
 void game_set_at_cursor_pos(void) {
     if(game_board[cursor_row][cursor_col] == ' ') {
-        char aux = ((current_player == PLAYER_1) ? 'X' : 'O');
-        game_board[cursor_row][cursor_col] = aux;
+        game_board[cursor_row][cursor_col] = ((current_player == PLAYER_1) ? 'X' : 'O');
         current_player = ((current_player == PLAYER_1) ? PLAYER_2 : PLAYER_1);
     }
 }
