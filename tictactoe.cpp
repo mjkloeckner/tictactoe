@@ -8,7 +8,7 @@
 #define  TUI_TOTAL_HEIGHT  7
 
 typedef enum {
-    PLAYER_1,
+    PLAYER_1 = 1,
     PLAYER_2
 } player_t;
 
@@ -62,15 +62,13 @@ void game_clear_board(void) {
 }
 
 void game_player_status_msg(void) {
-    std::ostringstream current_player_string;
     unsigned int player_won;
     key_string.assign("\033[0J");
 
     switch(game_status) {
     case PLAYING:
         player_status = std::string("Player ");
-        current_player_string << current_player+1;
-        player_status += current_player_string.str();
+        player_status += (std::ostringstream() << current_player).str();
         player_status += "\033[0J";
         break;
     case WIN:
