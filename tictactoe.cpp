@@ -5,6 +5,8 @@
 #include <string>
 #include <sstream>
 
+#define  TUI_TOTAL_HEIGHT  7
+
 typedef enum {
     PLAYER_1,
     PLAYER_2
@@ -20,7 +22,6 @@ typedef enum {
 } game_status_t;
 
 static struct termios default_attributes;
-static unsigned int tui_total_height;
 static player_t current_player;
 static game_status_t game_status;
 static int cursor_col, cursor_row, cursor_row_pre;
@@ -111,6 +112,8 @@ void game_print_board(void) {
               << game_board[2][1] << " │ " 
               << game_board[2][2] << " │\n"
               << "└───┴───┴───┘\n";
+
+    std::cout << "\033[" << TUI_TOTAL_HEIGHT-1 << "A";
 }
 
 void game_board_set_cursor(void) {
@@ -155,7 +158,7 @@ void game_redraw_board(void) {
 
 void game_tui_cleanup(void) {
     tui_reset_input_mode();
-    std::cout << "\033[" << tui_total_height-(cursor_row*2)-1 << "E";
+    std::cout << "\033[" << TUI_TOTAL_HEIGHT-(cursor_row*2)-1 << "E";
 }
 
 void game_tui_setup(void) {
@@ -324,7 +327,6 @@ void game_key_handler(void) {
 }
 
 int main(void) {
-    tui_total_height = 7;
     cursor_row = cursor_row_pre = cursor_col = 0;
     game_status = PLAYING;
     current_player = PLAYER_1;
