@@ -32,7 +32,7 @@ void tui_set_input_mode(void) {
     struct termios tattr;
 
     if (!isatty(STDIN_FILENO)) {
-        std::cerr <<  "Not a terminal" << std::endl;
+        std::cerr <<  "Error: not a terminal" << std::endl;
         exit (EXIT_FAILURE);
     }
 
@@ -99,17 +99,17 @@ void game_print_board(void) {
     game_player_status_msg();
     std::cout << "┌───┬───┬───┐\n│ "
               << game_board[0][0] << " │ "
-              << game_board[0][1] << " │ " 
+              << game_board[0][1] << " │ "
               << game_board[0][2] << " │ " << player_status << "\n";
 
     std::cout << "├───┼───┼───┤ " << key_string << "\n│ "
               << game_board[1][0] << " │ "
-              << game_board[1][1] << " │ " 
+              << game_board[1][1] << " │ "
               << game_board[1][2] << " │\n";
 
     std::cout << "├───┼───┼───┤\n│ "
               << game_board[2][0] << " │ "
-              << game_board[2][1] << " │ " 
+              << game_board[2][1] << " │ "
               << game_board[2][2] << " │\n"
               << "└───┴───┴───┘\n";
 
@@ -135,7 +135,7 @@ void game_move_cursor_up(void) {
     cursor_row_pre = cursor_row;
     cursor_row = (cursor_row > 0) ? cursor_row-1 : 2;
 }
- 
+
 void game_move_cursor_down(void) {
     cursor_row_pre = cursor_row;
     cursor_row = ((cursor_row + 1) > 2) ? 0 : cursor_row+1;
@@ -167,7 +167,7 @@ void game_tui_setup(void) {
     signal(SIGQUIT, game_sig_handler);
     signal(SIGTSTP, SIG_IGN);
     atexit(game_tui_cleanup);
-    std::cout << "\033[4 q"; // Blinking block cursor
+    std::cout << "\033[4 q"; // blinking block cursor
 }
 
 void game_initialize_board(void) {
