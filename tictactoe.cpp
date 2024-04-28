@@ -62,7 +62,6 @@ void game_clear_board(void) {
 }
 
 void game_player_status_msg(void) {
-    unsigned int player_won;
     key_string.assign("\033[0J");
 
     switch(game_status) {
@@ -72,10 +71,8 @@ void game_player_status_msg(void) {
         player_status += "\033[0J";
         break;
     case WIN:
-        player_won = ((current_player == PLAYER_1) ? PLAYER_2 : PLAYER_1);
-        current_player_string << player_won+1;
-        player_status += current_player_string.str();
         player_status.assign("Player ");
+        player_status += (std::ostringstream() << (current_player^3)).str();
         player_status += " Wins";
         key_string.assign("Press `r` to restart\033[0J");
         game_status = HALT;
