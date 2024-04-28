@@ -173,96 +173,53 @@ void game_initialize_board(void) {
 }
 
 void game_check_status(void) {
-    char aux;
-    size_t i, j, occ_x, occ_o;
+    char first;
+    size_t i, j, h, v, d, rd, white_space;
+
     if(game_status != PLAYING)
         return;
 
-    // Horizontal line
-    for(i = occ_x = occ_o = 0; i < 3; ++i) {
-        aux = game_board[cursor_row][i];
-        if(aux == 'X') {
-            occ_x++;
-            occ_o = 0;
-        }
-        else if (aux == 'O'){
-            occ_x = 0;
-            occ_o++;
-        }
-        else {
-            occ_x = occ_o = 0;
-        }
-    }
-    if ((occ_o == 3) || (occ_x == 3)) {
-        game_status = WIN;
-    }
-
-    // Vertical line
-    for(i = occ_x = occ_o = 0; i < 3; ++i) {
-        aux = game_board[i][cursor_col];
-        if(aux == 'X') {
-            occ_x++;
-            occ_o = 0;
-        }
-        else if (aux == 'O'){
-            occ_x = 0;
-            occ_o++;
-        }
-        else {
-            occ_x = occ_o = 0;
-        }
-    }
-    if ((occ_o == 3) || (occ_x == 3)) {
-        game_status = WIN;
-    }
-
-    // Reverse diagonal line (\)
-    for(i = occ_x = occ_o = 0; i < 3; ++i) {
-        aux = game_board[i][i];
-        if(aux == 'X') {
-            occ_x++;
-            occ_o = 0;
-        }
-        else if (aux == 'O'){
-            occ_x = 0;
-            occ_o++;
-        }
-        else {
-            occ_x = occ_o = 0;
+    for(i = white_space = 0; i < 3; ++i) {
+        for(j = h = v = d = rd = 0; j < 3; ++j) {
+            if((first = game_board[i][0]) != ' ') { // horizontal (-)
+                if(game_board[i][j] == first) {
+                    if((h++) == 2) {
+                        game_status = WIN;
+                        return;
+                    }
+                }
+            }
+            if((first = game_board[0][i]) != ' ') { // vertical (|)
+                if(game_board[j][i] == first) {
+                    if((v++) == 2) {
+                        game_status = WIN;
+                        return;
+                    }
+                }
+            }
+            if((first = game_board[0][0]) != ' ') { // diagonal (/)
+                if(game_board[j][j] == first) {
+                    if((d++) == 2) {
+                        game_status = WIN;
+                        return;
+                    }
+                }
+            }
+            if((first = game_board[0][2]) != ' ') { // reverse diagonal (\)
+                if(game_board[2-j][j] == first) {
+                    if((rd++) == 2) {
+                        game_status = WIN;
+                        return;
+                    }
+                }
+            }
+            if(game_board[i][j] == ' ') {
+                white_space++;
+            }
         }
     }
-    if ((occ_o == 3) || (occ_x == 3)) {
-        game_status = WIN;
-    }
-
-    // Forward diagonal line (/)
-    for(i = occ_x = occ_o = 0; i < 3; ++i) {
-        aux = game_board[2-i][i];
-        if(aux == 'X') {
-            occ_x++;
-            occ_o = 0;
-        }
-        else if (aux == 'O'){
-            occ_x = 0;
-            occ_o++;
-        }
-        else {
-            occ_x = occ_o = 0;
-        }
-    }
-    if ((occ_o == 3) || (occ_x == 3)) {
-        game_status = WIN;
-    }
-
-    if(game_status != WIN) {
-        for(i = 0; i < 3; ++i)
-            for(j = 0; j < 3; ++j)
-                if(game_board[i][j] == ' ')
-                    return;
-
-        if((i == j) && (i == 3))
-            game_status = DRAFT;
-    }
+    if((i == 3) && (j == 3) && (white_space == 0))
+        game_status = DRAFT;
 }
 
 void game_key_handler(void) {
