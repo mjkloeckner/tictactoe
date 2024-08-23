@@ -150,6 +150,7 @@ void game_redraw_board(void) {
 void game_tui_cleanup(void) {
     tui_reset_input_mode();
     std::cout << "\033[" << TUI_TOTAL_HEIGHT-(cursor_row*2)-1 << "E";
+    std::cout << "\033[0 q"; // block cursor shape
 }
 
 void game_tui_setup(void) {
@@ -158,7 +159,7 @@ void game_tui_setup(void) {
     signal(SIGQUIT, game_sig_handler);
     signal(SIGTSTP, SIG_IGN);
     atexit(game_tui_cleanup);
-    std::cout << "\033[4 q"; // blinking block cursor
+    std::cout << "\033[4 q"; // underline cursor shape
 }
 
 void game_initialize_board(void) {
